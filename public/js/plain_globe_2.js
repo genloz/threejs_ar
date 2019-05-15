@@ -104,7 +104,7 @@ function initialize() {
     ////////////////////////////////////////////////////////////	
     // create atToolkitContext
     arToolkitContext = new THREEx.ArToolkitContext({
-        cameraParametersUrl: 'data/camera_para.dat',
+        cameraParametersUrl: 'public/data/camera_para.dat',
         detectionMode: 'mono'
     });
 
@@ -119,13 +119,13 @@ function initialize() {
     markerRoot1 = new THREE.Group();
     scene.add(markerRoot1);
     let markerControls1 = new THREEx.ArMarkerControls(arToolkitContext, camera, {
-        type: 'pattern', patternUrl: "data/hiro.patt", changeMatrixMode: 'cameraTransformMatrix'
+        type: 'pattern', patternUrl: "public/data/hiro.patt", changeMatrixMode: 'cameraTransformMatrix'
     })
     let geometry1 = new THREE.SphereGeometry(sphereRadius, 32, 32);
 
     shader = Shaders['earth'];
     uniforms = THREE.UniformsUtils.clone(shader.uniforms);
-    uniforms['texture'].value = THREE.ImageUtils.loadTexture('images/globe.jpg');
+    uniforms['texture'].value = THREE.ImageUtils.loadTexture('public/images/globe.jpg');
     material = new THREE.ShaderMaterial({
         uniforms: uniforms,
         vertexShader: shader.vertexShader,
@@ -133,8 +133,10 @@ function initialize() {
     });
 
     sphere = new THREE.Mesh(geometry1, material);
-    scene.add(sphere);
+   /* scene.add(sphere); */
 
+	markerRoot1.add( sphere );
+	
     // atmosphere {{{
     shader = Shaders['atmosphere'];
     uniforms = THREE.UniformsUtils.clone(shader.uniforms);
@@ -150,7 +152,7 @@ function initialize() {
     atmosphereMesh = new THREE.Mesh(geometry1, material);
     atmosphereMesh.scale.set(1.1, 1.1, 1.1);
     atmosphereMesh.name = 'atmosphere';
-    markerRoot1.add(atmosphereMesh);
+   /* markerRoot1.add(atmosphereMesh);*/
     // }}}
 
     // hollow-circle && focus-circle {{{
@@ -176,7 +178,7 @@ function initialize() {
     // }}}
 
     // starfield-background {{{
-    var texture = THREE.ImageUtils.loadTexture('images/starfield.png');
+   /* var texture = THREE.ImageUtils.loadTexture('public/images/starfield.png');
     texture.wrapS = THREE.RepeatWrapping;
     texture.wrapT = THREE.RepeatWrapping;
     texture.repeat.set(4, 4);
@@ -195,7 +197,7 @@ function initialize() {
         new THREE.MeshFaceMaterial(cubeMaterials)
     );
     starfieldMesh.name = 'starfield';
-    markerRoot1.add(starfieldMesh);
+    markerRoot1.add(starfieldMesh);*/
     // }}}
 }
 function update() {
